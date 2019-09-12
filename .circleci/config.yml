@@ -3,7 +3,7 @@ version: 2.1
 executors:
     docker:
         docker:
-            -   image: circleci/golang:1.13
+            -   image: cimg/go:1.13
                 environment:
                     GOFLAGS: -mod=readonly
     minikube:
