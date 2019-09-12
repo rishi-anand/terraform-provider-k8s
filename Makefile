@@ -24,7 +24,7 @@ GOLANGCI_VERSION = 1.17.1
 GORELEASER_VERSION = 0.113.0
 TERRAFORM_VERSION = 0.12.5
 
-GOLANG_VERSION = 1.12
+GOLANG_VERSION = 1.13
 
 # Add the ability to override some variables
 # Use with care
