@@ -1,11 +1,7 @@
 module github.com/banzaicloud/terraform-provider-k8s
 
-go 1.12
+go 1.13
 
-require (
-	github.com/hashicorp/hcl v0.0.0-20171017181929-23c074d0eceb // indirect
-	github.com/hashicorp/terraform v0.12.5
-	github.com/kylelemons/godebug v1.1.0 // indirect
-)
+require github.com/hashicorp/terraform v0.12.8
 
 replace git.apache.org/thrift.git => github.com/apache/thrift v0.12.0
