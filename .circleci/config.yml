@@ -3,7 +3,7 @@ version: 2.1
 executors:
     docker:
         docker:
-            -   image: circleci/golang:1.12
+            -   image: cimg/go:1.13
                 environment:
                     GOFLAGS: -mod=readonly
     minikube:
@@ -84,15 +84,6 @@ commands:
                         sudo tar -C /usr/local -xzf go.linux-amd64.tar.gz
                         rm go.linux-amd64.tar.gz
 
-    restore_go_module_cache:
-        description: Restore Go module cache
-        steps:
-            -   restore_cache:
-                    name: Restore Go module cache
-                    keys:
-                        - gomod-v1-{{ checksum "go.sum" }}
-                        - gomod-v1
-
     integration:
         description: Integration tests
         parameters:
@@ -107,9 +98,8 @@ commands:
                     minikube_version: v1.1.0
                     kubernetes_version: << parameters.kubernetes_version >>
             -   setup_go:
-                    go_version: 1.12.5
+                    go_version: "1.13"
             - checkout
-            - restore_go_module_cache
             -   run:
                     name: Run integration tests
                     command: make TERRAFORM_VERSION=<< parameters.terraform_version >> test-integration
@@ -122,24 +112,17 @@ jobs:
 
         steps:
             - checkout
-            - restore_go_module_cache
 
             -   run:
                     name: Run tests
                     command: go test .
-
-            -   save_cache:
-                    name: Save Go module cache
-                    key: gomod-v1-{{ checksum "go.sum" }}
-                    paths:
-                        - /go/pkg/mod
 
     integration-test-012-k8s1-14:
         executor: minikube
         steps:
             -   integration:
                     kubernetes_version: v1.14.2
-                    terraform_version: 0.12.5
+                    terraform_version: 0.12.8
                     example_dir: examples/0.12
 
     integration-test-012-k8s1-13:
@@ -147,7 +130,7 @@ jobs:
         steps:
             -   integration:
                     kubernetes_version: v1.13.6
-                    terraform_version: 0.12.5
+                    terraform_version: 0.12.8
                     example_dir: examples/0.12
 
     integration-test-012-k8s1-12:
@@ -155,7 +138,7 @@ jobs:
         steps:
             -   integration:
                     kubernetes_version: v1.12.9
-                    terraform_version: 0.12.5
+                    terraform_version: 0.12.8
                     example_dir: examples/0.12
 
     integration-test-pre012-k8s1-14:
@@ -187,7 +170,6 @@ jobs:
 
         steps:
             - checkout
-            - restore_go_module_cache
 
             -   run:
                     name: Release
