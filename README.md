@@ -24,7 +24,7 @@ providers {
 
 ### The Terraform Plugin way  (enable versioning)
 
-Download a release from the [Release page]( https://github.com/banzaicloud/terraform-provider-k8s/releases ) and make sure the name matches the following convention
+Download a release from the [Release page](https://github.com/banzaicloud/terraform-provider-k8s/releases) and make sure the name matches the following convention:
 
 | OS      | Version | Name                              |
 | ------- | ------- | --------------------------------- |
