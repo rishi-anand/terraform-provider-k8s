@@ -26,7 +26,7 @@ providers {
 
 Download a release from the [Release page]( https://github.com/banzaicloud/terraform-provider-k8s/releases ) and make sure the name matches the following convention
 
-| OS      | version | Name                              |
+| OS      | Version | Name                              |
 | ------- | ------- | --------------------------------- |
 | LINUX   | 0.4.0   | terraform-provider-eks_v0.4.0     |
 |         | 0.3.0   | terraform-provider-eks_v0.3.0     |
