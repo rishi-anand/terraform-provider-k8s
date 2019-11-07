@@ -84,7 +84,7 @@ resource "k8s_manifest" "nginx-deployment" {
   content = "${data.template_file.nginx-deployment.rendered}"
 }
 
-# creating a secondary ressource in the nginx namespace
+# creating a second resource in the nginx namespace
 resource "k8s_manifest" "nginx-deployment" {
   content   = "${data.template_file.nginx-deployment.rendered}"
   namespace = "nginx"
