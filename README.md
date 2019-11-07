@@ -14,7 +14,7 @@ Use `go get` to install the provider:
 go get -u github.com/banzaicloud/terraform-provider-k8s
 ```
 
-Register the plugin in `~/.terraformrc` (see [Documentation]( https://www.terraform.io/docs/commands/cli-config.html ) for Windows users): 
+Register the plugin in `~/.terraformrc` (see [Documentation](https://www.terraform.io/docs/commands/cli-config.html) for Windows users): 
 
 ```hcl
 providers {
