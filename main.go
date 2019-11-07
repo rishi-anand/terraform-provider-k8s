@@ -162,7 +162,7 @@ func resourceManifestCreate(d *schema.ResourceData, m interface{}) error {
 
 	stdout := &bytes.Buffer{}
 	if isNamespace {
-		cmd = kubectl(m, kubeconfig, "get", "-f", "-", "-o", "json", "-n", namespace.(string))
+		cmd = kubectl(m, kubeconfig, "get", "-o", "json", "-n", namespace.(string), "-f", "-")
 	} else {
 		cmd = kubectl(m, kubeconfig, "get", "-f", "-", "-o", "json")
 	}
