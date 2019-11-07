@@ -151,7 +151,7 @@ func resourceManifestCreate(d *schema.ResourceData, m interface{}) error {
 	var cmd *exec.Cmd
 
 	if isNamespace {
-		cmd = kubectl(m, kubeconfig, "apply", "-f", "-", "-n", namespace.(string))
+		cmd = kubectl(m, kubeconfig, "apply", "-n", namespace.(string), "-f", "-")
 	} else {
 		cmd = kubectl(m, kubeconfig, "apply", "-f", "-")
 	}
