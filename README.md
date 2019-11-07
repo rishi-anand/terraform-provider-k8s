@@ -33,7 +33,7 @@ Download a release from the [Release page]( https://github.com/banzaicloud/terra
 | Windows | 0.4.0   | terraform-provider-eks_v0.4.0.exe |
 |         | 0.3.0   | terraform-provider-eks_v0.3.0.exe |
 
-Install the plugin using [Terraform Third-party Plugin Documentation]( https://www.terraform.io/docs/configuration/providers.html#third-party-plugins )
+Install the plugin using [Terraform Third-party Plugin Documentation](https://www.terraform.io/docs/configuration/providers.html#third-party-plugins):
 
 | Operating system  | User plugins directory        |
 | ----------------- | ----------------------------- |
