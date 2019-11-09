@@ -28,10 +28,10 @@ Download a release from the [Release page](https://github.com/banzaicloud/terraf
 
 | OS      | Version | Name                              |
 | ------- | ------- | --------------------------------- |
-| LINUX   | 0.4.0   | terraform-provider-eks_v0.4.0     |
-|         | 0.3.0   | terraform-provider-eks_v0.3.0     |
-| Windows | 0.4.0   | terraform-provider-eks_v0.4.0.exe |
-|         | 0.3.0   | terraform-provider-eks_v0.3.0.exe |
+| LINUX   | 0.4.0   | terraform-provider-k8s_v0.4.0     |
+|         | 0.3.0   | terraform-provider-k8s_v0.3.0     |
+| Windows | 0.4.0   | terraform-provider-k8s_v0.4.0.exe |
+|         | 0.3.0   | terraform-provider-k8s_v0.3.0.exe |
 
 Install the plugin using [Terraform Third-party Plugin Documentation](https://www.terraform.io/docs/configuration/providers.html#third-party-plugins):
 

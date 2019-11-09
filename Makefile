@@ -46,16 +46,16 @@ ifeq (${VERBOSE}, 1)
 	go env
 endif
 
-	go build ${GOARGS} -tags "${GOTAGS}" -ldflags "${LDFLAGS}" -o ${BUILD_DIR}/${BINARY_NAME}_${VERSION} .
+	go build ${GOARGS} -tags "${GOTAGS}" -ldflags "${LDFLAGS}" -o ${BUILD_DIR}/${BINARY_NAME} .
 
 .PHONY: test-integration
 test-integration: EXAMPLE_DIR ?= examples/0.12
 test-integration: build bin/terraform ## Execute integration tests
-	cp  ${BUILD_DIR}/${BINARY_NAME}_${VERSION} .
+	cp build/terraform-provider-k8s .
 	bin/terraform init ${EXAMPLE_DIR}
 	bin/terraform apply -auto-approve ${EXAMPLE_DIR}
 	bin/terraform destroy -auto-approve ${EXAMPLE_DIR}
-	rm ${BINARY_NAME}_${VERSION}
+	rm terraform-provider-k8s
 
 bin/terraform: bin/terraform-${TERRAFORM_VERSION}
 	@ln -sf terraform-${TERRAFORM_VERSION} bin/terraform
