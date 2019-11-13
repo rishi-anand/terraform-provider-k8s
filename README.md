@@ -4,7 +4,9 @@ The k8s Terraform provider enables Terraform to deploy Kubernetes resources. Unl
 
 This project is a maintained fork of [ericchiang/terraform-provider-k8s](https://github.com/ericchiang/terraform-provider-k8s).
 
-## Usage
+## Installation
+
+### The Go Get way
 
 Use `go get` to install the provider:
 
@@ -12,13 +14,33 @@ Use `go get` to install the provider:
 go get -u github.com/banzaicloud/terraform-provider-k8s
 ```
 
-Register the plugin in `~/.terraformrc`:
+Register the plugin in `~/.terraformrc` (see [Documentation](https://www.terraform.io/docs/commands/cli-config.html) for Windows users): 
 
 ```hcl
 providers {
   k8s = "/$GOPATH/bin/terraform-provider-k8s"
 }
 ```
+
+### The Terraform Plugin way  (enable versioning)
+
+Download a release from the [Release page](https://github.com/banzaicloud/terraform-provider-k8s/releases) and make sure the name matches the following convention:
+
+| OS      | Version | Name                              |
+| ------- | ------- | --------------------------------- |
+| LINUX   | 0.4.0   | terraform-provider-k8s_v0.4.0     |
+|         | 0.3.0   | terraform-provider-k8s_v0.3.0     |
+| Windows | 0.4.0   | terraform-provider-k8s_v0.4.0.exe |
+|         | 0.3.0   | terraform-provider-k8s_v0.3.0.exe |
+
+Install the plugin using [Terraform Third-party Plugin Documentation](https://www.terraform.io/docs/configuration/providers.html#third-party-plugins):
+
+| Operating system  | User plugins directory        |
+| ----------------- | ----------------------------- |
+| Windows           | %APPDATA%\terraform.d\plugins |
+| All other systems | ~/.terraform.d/plugins        |
+
+## Usage
 
 The provider takes the following optional configuration parameters:
 
@@ -60,6 +82,12 @@ data "template_file" "nginx-deployment" {
 
 resource "k8s_manifest" "nginx-deployment" {
   content = "${data.template_file.nginx-deployment.rendered}"
+}
+
+# creating a second resource in the nginx namespace
+resource "k8s_manifest" "nginx-deployment" {
+  content   = "${data.template_file.nginx-deployment.rendered}"
+  namespace = "nginx"
 }
 ```
 
@@ -109,6 +137,49 @@ $ terraform destroy -force
 Destroy complete! Resources: 2 destroyed.
 $ kubectl get deployments
 No resources found.
+```
+
+
+## Helm workflow
+
+#### Requirements 
+
+- Helm 2 or Helm 3
+
+Get a versioned chart into your source code and render it
+
+##### Helm 2
+
+``` shell
+helm fetch stable/nginx-ingress --version 1.24.4 --untardir charts --untar
+helm template --namespace nginx-ingress .\charts\nginx-ingress --output-dir manifests/
+```
+
+##### Helm 3
+
+``` shell
+helm pull stable/nginx-ingress --version 1.24.4 --untardir charts --untar
+helm template --namespace nginx-ingress nginx-ingress .\charts\nginx-ingress --output-dir manifests/
+```
+
+Apply the `main.tf` with the k8s provider
+
+```hcl2
+# terraform 0.12.x
+locals {
+  nginx-ingress_files   = fileset(path.module, "manifests/nginx-ingress/templates/*.yaml")
+}
+
+data "local_file" "nginx-ingress_files_content" {
+  for_each = local.nginx-ingress_files
+  filename = each.value
+}
+
+resource "k8s_manifest" "nginx-ingress" {
+  for_each = data.local_file.nginx-ingress_files_content
+  content  = each.value.content
+  namespace = "nginx"
+}
 ```
 
 [kubernetes-provider]: https://www.terraform.io/docs/providers/kubernetes/index.html

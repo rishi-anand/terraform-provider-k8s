@@ -62,6 +62,12 @@ func resourceManifest() *schema.Resource {
 		Delete: resourceManifestDelete,
 
 		Schema: map[string]*schema.Schema{
+			"namespace": &schema.Schema{
+				Type:      schema.TypeString,
+				Optional:  true,
+				Sensitive: false,
+				ForceNew:  true,
+			},
 			"content": &schema.Schema{
 				Type:      schema.TypeString,
 				Required:  true,
@@ -140,14 +146,26 @@ func resourceManifestCreate(d *schema.ResourceData, m interface{}) error {
 	}
 	defer cleanup()
 
-	cmd := kubectl(m, kubeconfig, "apply", "-f", "-")
+	namespace, isNamespace := d.GetOk("namespace")
+
+	var cmd *exec.Cmd
+
+	if isNamespace {
+		cmd = kubectl(m, kubeconfig, "apply", "-n", namespace.(string), "-f", "-")
+	} else {
+		cmd = kubectl(m, kubeconfig, "apply", "-f", "-")
+	}
 	cmd.Stdin = strings.NewReader(d.Get("content").(string))
 	if err := run(cmd); err != nil {
 		return err
 	}
 
 	stdout := &bytes.Buffer{}
-	cmd = kubectl(m, kubeconfig, "get", "-f", "-", "-o", "json")
+	if isNamespace {
+		cmd = kubectl(m, kubeconfig, "get", "-o", "json", "-n", namespace.(string), "-f", "-")
+	} else {
+		cmd = kubectl(m, kubeconfig, "get", "-o", "json", "-f", "-")
+	}
 	cmd.Stdin = strings.NewReader(d.Get("content").(string))
 	cmd.Stdout = stdout
 	if err := run(cmd); err != nil {
