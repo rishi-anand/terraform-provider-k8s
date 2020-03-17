@@ -136,7 +136,7 @@ func waitForReadyStatus(d *schema.ResourceData, c client.Client, object *unstruc
 				}
 
 				if status.Phase != nil {
-					if *status.Phase == "Active" || *status.Phase == "Bound" || *status.Phase == "Running" {
+					if *status.Phase == "Active" || *status.Phase == "Bound" || *status.Phase == "Running" || *status.Phase == "Ready" {
 						return object, "ready", nil
 					}
 
