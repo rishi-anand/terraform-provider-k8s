@@ -69,7 +69,7 @@ commands:
                     background: true
                     command: |
                         sudo -E minikube tunnel
-        
+
     setup_go:
         description: Setup Go
         parameters:
@@ -122,6 +122,7 @@ jobs:
             -   run:
                     name: Run tests
                     command: go test .
+
 
     integration-test-012-k8s1-16:
         executor: minikube
