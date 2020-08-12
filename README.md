@@ -45,6 +45,15 @@ Install the plugin using [Terraform Third-party Plugin Documentation](https://ww
 The provider uses your default Kubernetes configuration by default, but it takes some optional configuration parameters, see the [Configuration](#configuration) section (these parameters are the same as for the [Kubernetes provider](https://www.terraform.io/docs/providers/kubernetes/index.html#authentication)).
 
 ```hcl
+terraform {
+  required_providers {
+    k8s = {
+      version = ">= 0.8.0"
+      source  = "banzaicloud/k8s"
+    }
+  }
+}
+
 provider "k8s" {
   config_context = "prod-cluster"
 }
