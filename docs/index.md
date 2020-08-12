@@ -1,12 +1,4 @@
----
-layout: "k8s"
-page_title: "Provider: k8s"
-sidebar_current: "docs-k8s-index"
-description: |-
-  The k8s provider is used to configure a given Kubernetes cluster with raw manifests. The provider needs to be configured with the proper credentials before it can be used.
----
-
-# Kubernetes Provider
+# k8s Provider
 
 The k8s Terraform provider enables Terraform to deploy Kubernetes resources. Unlike the [official Kubernetes provider][kubernetes-provider] it handles raw manifests, leveraging [controller-runtime](https://github.com/kubernetes-sigs/controller-runtime) and the [Unstructured API](https://pkg.go.dev/github.com/kubernetes/apimachinery/pkg/apis/meta/v1/unstructured?tab=doc) directly to allow developers to work with any Kubernetes resource natively.
 

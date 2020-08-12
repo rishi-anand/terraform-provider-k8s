@@ -1,14 +1,6 @@
----
-layout: "k8s"
-page_title: "k8s: k8s_manifest"
-sidebar_current: "docs-k8s-resource-manifest"
-description: |-
-  Applies any kind of Kubernetes resources against the Kubernetes API server and waits until it gets provisioned (not supported for CRDs)
----
+# k8s_manifest Resource
 
-# k8s_manifest
-
-Applies any kind of Kubernetes resources against the Kubernetes API server and waits until it gets provisioned (not supported for CRDs).
+The `k8s_manifest` resource applies any kind of Kubernetes resources against the Kubernetes API server and waits until it gets provisioned (not supported for CRDs).
 
 ## Example Usage
 
