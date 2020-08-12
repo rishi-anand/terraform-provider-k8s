@@ -224,7 +224,7 @@ provider "k8s" {
 }
 ```
 
-If you have any other static configuration setting specifiedin a config file or static configuration, in-cluster service account token will not be tried.
+If you have any other static configuration setting specified in a config file or static configuration, in-cluster service account token will not be tried.
 
 ### Statically defined credentials
 
