@@ -2,7 +2,7 @@
 
 The k8s Terraform provider enables Terraform to deploy Kubernetes resources. Unlike the [official Kubernetes provider][kubernetes-provider] it handles raw manifests, leveraging [controller-runtime](https://github.com/kubernetes-sigs/controller-runtime) and the [Unstructured API](https://pkg.go.dev/github.com/kubernetes/apimachinery/pkg/apis/meta/v1/unstructured?tab=doc) directly to allow developers to work with any Kubernetes resource natively.
 
-This project is a hard fork of [ericchiang/terraform-provider-k8s](https://github.com/ericchiang/terraform-provider-k8s).
+This project is a hard fork of [banzaicloud/terraform-provider-k8s](https://github.com/banzaicloud/terraform-provider-k8s).
 
 ## Installation
 
